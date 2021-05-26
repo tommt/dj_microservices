@@ -40,7 +40,10 @@ class ProductViewSet(viewsets.ViewSet):
         return Response({'success': 'removed products'}, status=status.HTTP_204_NO_CONTENT)
 
 
-def UserAPIView(APIView):
+class UserAPIView(APIView):
     def get(self, _):
         users = User.objects.all()
         user = random.choice(users)
+        return Response({
+            'id': user.id,
+        })
