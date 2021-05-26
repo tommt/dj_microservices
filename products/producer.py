@@ -1,4 +1,5 @@
 import pika
+import json
 
 
 params = pika.URLParameters(
@@ -9,6 +10,7 @@ conn = pika.BlockingConnection(params)
 channel = conn.channel()
 
 
-def publish():
+def publish(method, body):
+    properties = pika.BasicProperties(method)
     channel.basic_publish(exchange='', routing_key='main',
-                          body="hello from django to main FLASK")
+                          body=json.dumps(body), properties=properties)
