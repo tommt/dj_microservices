@@ -1,9 +1,16 @@
 from rest_framework import viewsets
 
+from .models import Product
+from .serializers import ProductSerializer
+from rest_framework.response import Response
+from rest_framework import status
+
 
 class ProductViewSet(viewsets.ViewSet):
     def list(self, request):
-        pass
+        products = Product.objects.all()
+        serializer = ProductSerializer(products, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
 
     def create(self, request):
         pass
@@ -14,5 +21,5 @@ class ProductViewSet(viewsets.ViewSet):
     def update(self, request, pk=None):
         pass
 
-    def delete(self, request, pk=None):
+    def destroy(self, request, pk=None):
         pass
